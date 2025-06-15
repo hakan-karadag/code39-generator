@@ -1,0 +1,81 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Reset body styles for full-screen app */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Animations personnalisées pour une meilleure performance */
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-subtle-float {
+    animation: subtle-float 3s ease-in-out infinite;
+  }
+  
+  .backdrop-blur-strong {
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+  
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+}
+
+/* Animation subtile de flottement - mouvement doux haut/bas */
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(-3px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  75% {
+    transform: translateY(2px);
+  }
+}
+
+/* Protection contre les screenshots */
+.screenshot-protection {
+  position: relative;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.screenshot-overlay {
+  background: transparent;
+  z-index: 1;
+}
+
+/* Protection mobile spécifique */
+@media (max-width: 768px) {
+  .screenshot-protection::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent 49%, rgba(0,0,0,0.01) 50%, transparent 51%);
+    background-size: 2px 2px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.3;
+  }
+} 
